@@ -1,9 +1,9 @@
 import axios from "axios";
-import {Link, usePage} from "@inertiajs/react";
+import {Link, usePage, router} from "@inertiajs/react";
+import React from "react";
 
 interface TableProps {
     data: Array<{ [key: string]: any }>;
-    apiUrl: string;
 }
 
 const formatHeader = (key: string) => {
@@ -15,13 +15,11 @@ const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('id-ID', options);
 };
 
-const Table: React.FC<TableProps> = ({ data, apiUrl }) => {
-    const handleDelete = async (id: string) => {
-        try {
-            await axios.delete(route('delete.api', { id: id }));
-        } catch (error) {
-            console.error('Failed to delete data:', error);
-        }
+const Table: React.FC<TableProps> = ({ data }) => {
+    const pathname = usePage().url
+
+    const handleDelete = (id: any) => {
+        router.delete(`${pathname}/${id}`)
     };
 
     if (data.length === 0) {
@@ -30,7 +28,7 @@ const Table: React.FC<TableProps> = ({ data, apiUrl }) => {
 
     return (
         <>
-            <Link href={`/${apiUrl}/Tambah`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4">
+            <Link href={`${pathname}/create`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-4">
                 Tambah
             </Link>
             <table className="mt-6 table-auto w-full border-collapse border border-gray-300">
@@ -49,12 +47,12 @@ const Table: React.FC<TableProps> = ({ data, apiUrl }) => {
                         <td className="border px-4 py-2 border-gray-300">{index + 1}</td>
                         {Object.entries(item).map(([key, value], i) => (
                             <td key={i} className="border px-4 py-2 border-gray-300">
-                                {key.includes('tanggal') || key.includes('date') ? formatDate(value) : value}
+                                {key.includes('created_at') || key.includes('updated_at') ? formatDate(value) : value}
                             </td>
                         ))}
                         <td className="flex justify-center border px-4 py-2 border-gray-300">
-                            <Link href={`/${apiUrl}/${data[index].id}`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Detail
+                            <Link href={`${pathname}/${data[index].id}`} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                Edit
                             </Link>
                             <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2" onClick={() => handleDelete(data[index].id)}>
                                 Delete

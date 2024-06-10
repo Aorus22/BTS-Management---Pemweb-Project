@@ -2,11 +2,15 @@
 
 use App\Http\Controllers\JenisBtsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WilayahController;
+use App\Http\Controllers\PemilikController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::resource('jenis-bts', JenisBtsController::class);
+Route::resource('wilayah', WilayahController::class);
+Route::resource('pemilik', PemilikController::class);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

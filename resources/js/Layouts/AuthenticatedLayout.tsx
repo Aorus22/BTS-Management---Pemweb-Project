@@ -1,13 +1,11 @@
 import { useState, PropsWithChildren, ReactNode } from 'react';
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
+import ApplicationLogo from '@/Components/Default/ApplicationLogo';
+import NavLink from '@/Components/Default/NavLink';
 import { Link } from '@inertiajs/react';
 import { User } from '@/types';
 
 export default function Authenticated({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
-    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(true);
+    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     const toggleDropdown = () => {
         setShowingNavigationDropdown((prev) => !prev);
@@ -25,14 +23,19 @@ export default function Authenticated({ user, header, children }: PropsWithChild
             svg: <img src="/icon/data-bts.svg" alt="Data BTS" />,
         },
         {
-            title: 'Data BTS',
-            route: '/data-bts',
+            title: 'Wilayah',
+            route: '/wilayah',
             svg: <img src="/icon/data-bts.svg" alt="Data BTS" />,
         },
         {
             title: 'Data Pemilik',
-            route: '/data-pemilik',
+            route: '/pemilik',
             svg: <img src="/icon/data-pemilik.svg" alt="Data Pemilik" />,
+        },
+        {
+            title: 'Data BTS',
+            route: '/data-bts',
+            svg: <img src="/icon/data-bts.svg" alt="Data BTS" />,
         },
         {
             title: 'Data Pengguna',
