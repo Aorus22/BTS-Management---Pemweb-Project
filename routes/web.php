@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\JenisBtsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+Route::resource('jenis-bts', JenisBtsController::class);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
