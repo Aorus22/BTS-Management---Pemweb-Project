@@ -34,7 +34,7 @@ export default function Authenticated({ user, header, children }: PropsWithChild
         },
         {
             title: 'Data BTS',
-            route: '/data-bts',
+            route: '/bts',
             svg: <img src="/icon/data-bts.svg" alt="Data BTS" />,
         },
         {
@@ -51,7 +51,7 @@ export default function Authenticated({ user, header, children }: PropsWithChild
 
 
     return (
-        <div className="min-h-screen bg-gray-100 flex">
+        <div className="bg-gray-100 min-h-screen flex">
             <div
                 className="bg-white border-r border-gray-200 w-64 flex-shrink-0 flex flex-col fixed left-0 top-0 bottom-0 z-50">
                 <div className="flex items-center justify-center h-16 border-b border-gray-200">

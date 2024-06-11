@@ -20,7 +20,7 @@ class JenisBtsSeeder extends Seeder
         ];
 
         foreach ($jenisBtsData as $data) {
-            JenisBTS::create($dat);
+            JenisBTS::create($data);
         }
     }
 }

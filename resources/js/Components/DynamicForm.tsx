@@ -21,6 +21,10 @@ interface DynamicFormProps {
     dropdown?: Dropdown;
 }
 
+const formatLabel = (key: string) => {
+    return key.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+};
+
 const DynamicForm: React.FC<DynamicFormProps> = ({ isNewForm, data, setData, dropdown }) => {
     const pathname = usePage().url.split('/').slice(0, 2).join('/');
     const [isEditMode, setIsEditMode] = useState(isNewForm);
@@ -101,7 +105,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ isNewForm, data, setData, dro
                         <label
                             className={`block text-gray-700 text-sm font-bold mb-2 ${isNewForm && key === 'id' ? 'hidden' : ''}`}
                             htmlFor={key}>
-                            {key.charAt(0).toUpperCase() + key.slice(1)}
+                            {formatLabel(key)}
                         </label>
                         {dropdown && dropdown.hasOwnProperty(key) ? (
                             <select

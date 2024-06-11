@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BTSController;
 use App\Http\Controllers\JenisBtsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WilayahController;
@@ -11,6 +12,7 @@ use Inertia\Inertia;
 Route::resource('jenis-bts', JenisBtsController::class);
 Route::resource('wilayah', WilayahController::class);
 Route::resource('pemilik', PemilikController::class);
+Route::resource('bts', BTSController::class);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

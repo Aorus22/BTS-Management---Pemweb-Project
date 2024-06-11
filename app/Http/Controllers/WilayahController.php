@@ -67,7 +67,7 @@ class WilayahController extends Controller
         $formattedwilayah = [
             'id' => $wilayah->id,
             'nama' => $wilayah->nama,
-            'id_parent' => optional($wilayah->parent)->nama,
+            'id_parent' => optional($wilayah->parent)->id,
             'level' => $wilayah->level
         ];
 
