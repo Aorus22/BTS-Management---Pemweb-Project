@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BTSController;
 use App\Http\Controllers\JenisBtsController;
+use App\Http\Controllers\PenggunaRouterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\PemilikController;
@@ -13,6 +14,7 @@ Route::resource('jenis-bts', JenisBtsController::class);
 Route::resource('wilayah', WilayahController::class);
 Route::resource('pemilik', PemilikController::class);
 Route::resource('bts', BTSController::class);
+Route::resource('pengguna-router', PenggunaRouterController::class);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

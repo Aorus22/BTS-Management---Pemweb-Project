@@ -39,7 +39,7 @@ export default function Authenticated({ user, header, children }: PropsWithChild
         },
         {
             title: 'Data Pengguna',
-            route: '/data-pengguna',
+            route: '/pengguna-router',
             svg: <img src="/icon/data-pengguna.svg" alt="Data Pengguna" />,
         },
         {

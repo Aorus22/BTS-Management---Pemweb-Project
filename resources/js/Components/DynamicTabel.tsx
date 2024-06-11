@@ -19,7 +19,9 @@ const Table: React.FC<TableProps> = ({ data }) => {
     const pathname = usePage().url
 
     const handleDelete = (id: any) => {
-        router.delete(`${pathname}/${id}`)
+        if (confirm("Apakah yakin ingin menghapus data ini?")){
+            router.delete(`${pathname}/${id}`)
+        }
     };
 
     if (data.length === 0) {
