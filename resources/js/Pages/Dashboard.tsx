@@ -1,7 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { PageProps } from '@/types';
-import GoogleMap from "@/Components/GoogleMaps";
 
 export default function Dashboard({ auth }: PageProps) {
     return (

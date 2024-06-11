@@ -1,9 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import Tabel from "@/Components/DynamicTabel";
 import {PageProps} from "@/types";
 import DynamicForm from "@/Components/DynamicForm";
 import React, {useState} from "react";
-import {data} from "autoprefixer";
 
 const Page: React.FC<PageProps> = ({ auth, jenisBts }) => {
     const [dataJenisBts, setDataJenisBts] = useState(jenisBts)

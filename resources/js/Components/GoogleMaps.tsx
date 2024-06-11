@@ -10,7 +10,7 @@ const GoogleMap: React.FC<GMaps> = ({latitude, longitude}) => {
 
     useEffect(() => {
         if (mapRef.current) {
-            mapRef.current.src = `https://maps.google.com/maps?q=${latitude},${longitude}&hl=eng&output=embed`;
+            mapRef.current.src = `https://maps.google.com/maps?q=${latitude},${longitude}&hl=eng&z=${9}&output=embed`;
         }
     }, []);
 

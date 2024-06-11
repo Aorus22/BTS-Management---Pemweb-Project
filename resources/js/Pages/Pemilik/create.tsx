@@ -1,5 +1,4 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import Tabel from "@/Components/DynamicTabel";
 import {PageProps} from "@/types";
 import DynamicForm from "@/Components/DynamicForm";
 import React, {useState} from "react";
