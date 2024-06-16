@@ -51,7 +51,7 @@ export default function Authenticated({ user, header, children }: PropsWithChild
 
 
     return (
-        <div className="min-h-screen flex">
+        <div className="h-screen flex">
             <div
                 className="bg-gray-900 text-white border-r border-gray-200 w-64 flex-shrink-0 flex flex-col fixed left-0 top-0 bottom-0 z-50">
                 <div className="flex items-center justify-center h-16 border-b border-gray-200">
@@ -91,13 +91,13 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                 </div>
             </div>
 
-            <div className="flex flex-col flex-1 ml-64">
+            <div className="flex flex-col flex-1 ml-64 overflow-auto">
                 {header && (
                     <header className="bg-white shadow">
                         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
                     </header>
                 )}
-                <main>{children}</main>
+                {children}
             </div>
         </div>
     );
