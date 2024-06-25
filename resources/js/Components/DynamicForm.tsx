@@ -65,13 +65,13 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ isNewForm, data, dropdown }) 
     };
 
     return (
-        <div>
+        <div className="bg-gradient-to-b from-white to-gray-50 rounded-xl p-12 mt-4">
             {!isNewForm && (
                 <div className="mb-4 flex space-x-2">
                     <button
                         type="button"
                         onClick={toggleEditMode}
-                        className={`px-4 py-2 ${isEditMode ? 'bg-red-500' : 'bg-blue-500'} text-white rounded`}
+                        className={`px-4 py-2 ${isEditMode ? 'bg-gradient-to-r from-red-600 to-red-800' : 'bg-gradient-to-r from-[#2c3f79] to-[#3b5998]'} text-white rounded`}
                     >
                         {isEditMode ? 'Cancel' : 'Edit'}
                     </button>
@@ -79,7 +79,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ isNewForm, data, dropdown }) 
                         <button
                             type="button"
                             onClick={handleUpdate}
-                            className="px-4 py-2 bg-green-500 text-white rounded"
+                            className="px-4 py-2 bg-gradient-to-r from-green-600 to-green-800 text-white rounded"
                             disabled={processing}
                         >
                             Save
@@ -89,9 +89,9 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ isNewForm, data, dropdown }) 
             )}
             <form onSubmit={isNewForm ? handleSubmit : handleUpdate}>
                 {Object.keys(formData).map((key) => (
-                    <div key={key} className="mb-4">
+                    <div key={key} className={`mb-4 ${isNewForm && key === 'id' ? 'hidden' : ''}`}>
                         <label
-                            className={`block text-gray-700 text-sm font-bold mb-2 ${isNewForm && key === 'id' ? 'hidden' : ''}`}
+                            className={`block text-gray-700 text-lg font-bold mb-2 ${isNewForm && key === 'id' ? 'hidden' : ''}`}
                             htmlFor={key}>
                             {formatLabel(key)}
                         </label>
@@ -100,10 +100,10 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ isNewForm, data, dropdown }) 
                                 name={key}
                                 value={formData[key]}
                                 onChange={(e) => setData(key, e.target.value)}
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline text-lg ${!isEditMode ? 'bg-gray-200 cursor-not-allowed' : ''}`}
                                 disabled={!isEditMode}
                             >
-                                <option value="">Pilih {key}</option>
+                                <option value="">Pilih {formatLabel(key)}</option>
                                 {dropdown[key].map((option: DropdownOption) => (
                                     <option key={option.id} value={option.id}>{option.nama}</option>
                                 ))}
@@ -114,7 +114,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ isNewForm, data, dropdown }) 
                                 name={key}
                                 value={getInputType(key) === 'datetime-local' ? (new Date(formData[key]).toISOString().slice(0, 16)) : (formData[key])}
                                 onChange={(e) => setData(key, e.target.value)}
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                className={`shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-lg ${!isEditMode || key === 'id' ? 'bg-gray-200 cursor-not-allowed' : ''}`}
                                 hidden={isNewForm && key === 'id'}
                                 disabled={!isEditMode || key === 'id'}
                             />
@@ -126,7 +126,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ isNewForm, data, dropdown }) 
                 {isNewForm && (
                     <button
                         type="submit"
-                        className="px-4 py-2 bg-blue-500 text-white rounded"
+                        className="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded text-lg"
                         disabled={processing}
                     >
                         Submit

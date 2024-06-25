@@ -135,10 +135,10 @@ const Table: React.FC<TableProps> = ({ data }) => {
     );
 
     return (
-        <div className="px-8 py-4 mt-3 bg-gray-200 rounded-xl relative">
+        <div className="px-8 py-4 mt-3 bg-gradient-to-b from-white to-gray-100 rounded-xl relative shadow-xl">
             <div className="flex justify-between items-center my-4">
                 <Link href={`${pathname}/create`}
-                      className="bg-[#2c3f79] text-white flex items-center space-x-2 font-semibold py-2 px-4 border border-black rounded-lg hover:bg-gray-100 hover:text-[#2c3f79]"
+                      className="bg-gradient-to-r from-[#2c3f79] to-[#3b5998] text-white flex items-center space-x-2 font-semibold py-2 px-4 border border-black rounded-lg hover:bg-gray-100 hover:text-[#2c3f79]"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                          className="h-6 w-6">
@@ -168,11 +168,11 @@ const Table: React.FC<TableProps> = ({ data }) => {
                 <p className="text-center p-4">Tidak ada data yang tersedia.</p>
             ) : (
                 <>
-                    <div className="overflow-auto rounded-xl">
+                    <div className="overflow-auto rounded-xl bg-gradient-to-b from-gray-50 to-gray-100">
                         <table id="pdf-table" className="table-auto w-full border-collapse">
                             <thead>
-                            <tr className="h-12 bg-white border-b-2 border-black">
-                                <th className="px-4 py-2">No</th>
+                            <tr className="h-12 bg-gradient-to-b from-gray-800 to-gray-700 text-white border-b-2 border-black">
+                                <th className="px-4 py-8">No</th>
                                 {Object.keys(currentItems[0]).map((key, index) => (
                                     <th
                                         key={index}
@@ -192,8 +192,8 @@ const Table: React.FC<TableProps> = ({ data }) => {
                             </thead>
                             <tbody>
                             {currentItems.map((item, index) => (
-                                <tr key={index} className="bg-white border-b-2">
-                                    <td className="px-4 py-2">{indexOfFirstItem + index + 1}</td>
+                                <tr key={index} className="bg-white border-2">
+                                    <td className="px-4 py-2 pl-6">{indexOfFirstItem + index + 1}</td>
                                     {Object.entries(item).map(([key, value], i) => (
                                         <td key={i} className="px-4 py-2">
                                             {key.includes('created_at') || key.includes('updated_at') ? formatDate(value) : value}

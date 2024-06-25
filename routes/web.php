@@ -15,6 +15,7 @@ Route::resource('wilayah', WilayahController::class);
 Route::resource('pemilik', PemilikController::class);
 Route::resource('bts', BTSController::class);
 Route::resource('pengguna-router', PenggunaRouterController::class);
+//Route::resource('data-kuesioner', KuesionerController::class);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
