@@ -2,7 +2,8 @@ import { Link, usePage, router } from "@inertiajs/react";
 import React, { useEffect, useState } from "react";
 
 interface TableProps {
-    data: Array<{ [key: string]: any }>;
+    data: Array<{ [key: string]: any }>,
+    customPath?: string
 }
 
 const formatHeader = (key: string) => {
@@ -14,8 +15,12 @@ const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('id-ID', options);
 };
 
-const Table: React.FC<TableProps> = ({ data }) => {
-    const pathname = usePage().url;
+const Table: React.FC<TableProps> = ({ data, customPath }) => {
+    let pathname = usePage().url;
+
+    if(customPath){
+        pathname = customPath
+    }
 
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);

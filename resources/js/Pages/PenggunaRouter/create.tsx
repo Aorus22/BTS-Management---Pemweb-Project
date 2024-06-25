@@ -16,7 +16,7 @@ const Page: React.FC<PageProps> = ({ auth}) => {
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Penggun Router</h2>}
         >
             <div className="p-4">
-                <DynamicForm data={data} isNewForm={true} setData={setData} />
+                <DynamicForm data={data} isNewForm={true} />
             </div>
         </AuthenticatedLayout>
     );

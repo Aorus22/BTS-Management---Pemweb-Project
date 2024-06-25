@@ -17,7 +17,7 @@ const Page: React.FC<PageProps> = ({ auth, wilayah, wilayahLevel1 }) => {
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Wilayah</h2>}
         >
             <div className="p-4">
-                <DynamicForm data={data as object} isNewForm={false} setData={setData} dropdown={dropdown} />
+                <DynamicForm data={data as object} isNewForm={false} dropdown={dropdown} />
             </div>
         </AuthenticatedLayout>
     );

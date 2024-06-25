@@ -21,7 +21,7 @@ const Page: React.FC<PageProps> = ({ auth, databts,  wilayahLevel2, pemilik, jen
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Jenis BTS</h2>}
         >
             <div className="p-4">
-                <DynamicForm data={data as object} isNewForm={false} setData={setData} dropdown={dropdown} />
+                <DynamicForm data={data as object} isNewForm={false} dropdown={dropdown} />
             </div>
             <div className="p-4">
                 <GoogleMap  latitude={data.latitude} longitude={data.longitude}/>

@@ -16,23 +16,17 @@ export type FormDataCustom = {
 
 interface DynamicFormProps {
     isNewForm: boolean;
-    data: FormDataCustom;
+    data: any;
     dropdown?: Dropdown;
-    customPath?: string;
 }
 
 const formatLabel = (key: string) => {
     return key.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 };
 
-const DynamicForm: React.FC<DynamicFormProps> = ({ isNewForm, data, dropdown, customPath }) => {
-    let pathname = usePage().url.split('/').slice(0, 2).join('/');
-
-    if(customPath){
-        pathname = customPath
-    }
-
-    const { data: formData, setData, post, put, processing, errors } = useForm<FormDataCustom>(data);
+const FormKuesioner: React.FC<DynamicFormProps> = ({ isNewForm, data, dropdown }) => {
+    const pathname = usePage().url.split('/').slice(0, 2).join('/');
+    const { data: formData, setData, post, put, processing, errors } = data
     const [isEditMode, setIsEditMode] = useState(isNewForm);
     const [initialData] = useState<FormDataCustom>(data);
 
@@ -143,4 +137,4 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ isNewForm, data, dropdown, cu
     );
 };
 
-export default DynamicForm;
+export default FormKuesioner;

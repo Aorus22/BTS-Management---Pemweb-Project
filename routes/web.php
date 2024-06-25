@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\BTSController;
 use App\Http\Controllers\JenisBtsController;
+use App\Http\Controllers\KuesionerController;
 use App\Http\Controllers\PenggunaRouterController;
+use App\Http\Controllers\PilihanKuesionerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WilayahController;
 use App\Http\Controllers\PemilikController;
@@ -15,7 +17,13 @@ Route::resource('wilayah', WilayahController::class);
 Route::resource('pemilik', PemilikController::class);
 Route::resource('bts', BTSController::class);
 Route::resource('pengguna-router', PenggunaRouterController::class);
-//Route::resource('data-kuesioner', KuesionerController::class);
+Route::resource('data-kuesioner', KuesionerController::class);
+Route::resource('data-pilihan-kuesioner', PilihanKuesionerController::class);
+
+Route::get('/data-kuesioner/{id_kuesioner}/data-pilihan-kuesioner/create', [PilihanKuesionerController::class, 'create']);
+Route::post('/data-kuesioner/{id_kuesioner}/data-pilihan-kuesioner', [PilihanKuesionerController::class, 'store']);
+Route::delete('/data-kuesioner/{id_kuesioner}/data-pilihan-kuesioner/{id}', [PilihanKuesionerController::class, 'destroy']);
+Route::get('/data-kuesioner/{id_kuesioner}/data-pilihan-kuesioner/{id}', [PilihanKuesionerController::class, 'show']);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

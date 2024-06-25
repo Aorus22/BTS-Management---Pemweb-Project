@@ -12,7 +12,7 @@ const Page: React.FC<PageProps> = ({ auth, pemilik }) => {
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Pemilik</h2>}
         >
             <div className="p-4">
-                <DynamicForm data={data as object} isNewForm={false} setData={setData} />
+                <DynamicForm data={data as object} isNewForm={false}  />
             </div>
         </AuthenticatedLayout>
     );
