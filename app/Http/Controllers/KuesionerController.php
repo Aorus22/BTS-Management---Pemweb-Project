@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kuesioner;
 use App\Models\Pilihan_Kuesioner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -101,9 +102,14 @@ class KuesionerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Kuesioner $kuesioner)
+    public function update(Request $request, $id)
     {
-        //
+        $kuesioner = Kuesioner::findOrFail($id);
+        $data = $request->all();
+        $data['edited_by'] = Auth::id();
+        $data['edited_at'] = Carbon::now();
+        $kuesioner->update($data);
+        return redirect()->route('data-kuesioner.index')->with('success', 'Kuesioner berhasil diupdate');
     }
 
     /**

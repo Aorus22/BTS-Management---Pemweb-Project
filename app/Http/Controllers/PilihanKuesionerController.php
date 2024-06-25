@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kuesioner;
 use App\Models\Pilihan_Kuesioner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -43,7 +44,13 @@ class PilihanKuesionerController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $pilihan_kuesioner = Pilihan_Kuesioner::findOrFail($id);
+        $pilihan_kuesioner = [
+            'id' => $pilihan_kuesioner->id,
+            'pilihan_jawaban' => $pilihan_kuesioner->pilihan_jawaban,
+        ];
+
+        return Inertia::render('PilihanKuesioner/edit', ['pilihan_kuesioner' => $pilihan_kuesioner]);
     }
 
     /**
@@ -57,9 +64,14 @@ class PilihanKuesionerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id_kuesioner, $id)
     {
-        //
+        $pilihan_kuesioner = Pilihan_Kuesioner::findOrFail($id);
+        $data = $request->all();
+        $data['edited_by'] = Auth::id();
+        $data['edited_at'] = Carbon::now();
+        $pilihan_kuesioner->update($data);
+        return redirect('/data-kuesioner/'.$id_kuesioner)->with('success', 'Pilihan Kuesioner berhasil diupdate');
     }
 
     /**

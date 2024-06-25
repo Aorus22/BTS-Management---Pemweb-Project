@@ -24,6 +24,7 @@ Route::get('/data-kuesioner/{id_kuesioner}/data-pilihan-kuesioner/create', [Pili
 Route::post('/data-kuesioner/{id_kuesioner}/data-pilihan-kuesioner', [PilihanKuesionerController::class, 'store']);
 Route::delete('/data-kuesioner/{id_kuesioner}/data-pilihan-kuesioner/{id}', [PilihanKuesionerController::class, 'destroy']);
 Route::get('/data-kuesioner/{id_kuesioner}/data-pilihan-kuesioner/{id}', [PilihanKuesionerController::class, 'show']);
+Route::put('/data-kuesioner/{id_kuesioner}/data-pilihan-kuesioner/{id}', [PilihanKuesionerController::class, 'update']);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

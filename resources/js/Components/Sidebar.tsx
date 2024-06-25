@@ -74,10 +74,10 @@ const Sidebar: React.FC<SidebarProps> = ({ user }) => {
 
             <div className="relative">
                 {showingNavigationDropdown && (
-                    <div className="bg-gray-700 absolute right-0 -top-16 mt-2 w-56 rounded-md bg-white shadow-lg">
-                        <div className="border-t border-gray-200 flex flex-col">
-                            <NavLink href={route('profile.edit')} active className="py-3">Profile</NavLink>
-                            <NavLink method="post" href={route('logout')} as="button" active className="py-3">
+                    <div className="bg-gray-700 absolute right-5 -top-24 mt-2 w-56 rounded-lg shadow-lg">
+                        <div className="border-gray-200 flex flex-col rounded px-4 py-2 gap-2">
+                            <NavLink href={route('profile.edit')} active={false} className="py-3">Profile</NavLink>
+                            <NavLink method="post" href={route('logout')} as="button" active={false} className="py-3">
                                 Log Out
                             </NavLink>
                         </div>
