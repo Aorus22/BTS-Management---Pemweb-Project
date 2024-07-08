@@ -33,7 +33,10 @@ const KuesionerForm: React.FC<KuesionerFormProps> = ({ kuesioner, pilihan_kuesio
     };
 
     return (
-        <div className="bg-gradient-to-b from-gray-100 to-gray-300 p-8 rounded-lg shadow-lg">
+        <div>
+            <div className="mb-8 py-4 bg-gradient-to-b from-gray-700 to-gray-800 rounded-lg shadow-md text-center">
+                <p className="text-3xl font-semibold text-white">KUESIONER</p>
+            </div>
             {kuesioner.map((item) => (
                 <div key={item.id} className="mb-8 p-4 bg-white rounded-lg shadow-md">
                     <p className="text-lg font-semibold mb-4 text-gray-700">{item.pertanyaan}</p>

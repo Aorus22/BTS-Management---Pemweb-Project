@@ -17,7 +17,7 @@ const Page: React.FC<PageProps> = ({ auth, kuesioner, pilihan_kuesioner }) => {
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Kuesioner</h2>}
         >
-            <div className="p-4">
+            <div className="py-4 px-48">
                 <DynamicForm data={data1 as object} isNewForm={false}  />
                 <DynamicTabel data={data2 as []} customPath={`${pathname}/data-pilihan-kuesioner`} />
             </div>

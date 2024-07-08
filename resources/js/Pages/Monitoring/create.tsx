@@ -8,8 +8,8 @@ import {useForm} from "@inertiajs/react";
 
 const Page: React.FC<PageProps> = ({ auth, bts, kuesioner, pilihankuesioner}) => {
     const [data, setData] = useState({
-        tahun: 2024,
         id_bts: "",
+        tahun: 2024,
         tanggal_kunjungan: new Date().toISOString().slice(0, 16)
     })
 
@@ -55,21 +55,8 @@ const Page: React.FC<PageProps> = ({ auth, bts, kuesioner, pilihankuesioner}) =>
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Monitoring</h2>}
         >
-            <div className="p-4">
+            <div className="py-4 px-48">
                 <div className="bg-gradient-to-b from-white to-gray-50 rounded-xl p-12 mt-4">
-                    <div className="mb-4">
-                        <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="tahun">
-                            Tahun
-                        </label>
-                        <input
-                            type="number"
-                            name="tahun"
-                            value={data.tahun}
-                            onChange={handleInputChange}
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline text-lg"
-                        />
-                    </div>
-
                     <div className="mb-4">
                         <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="id_bts">
                             Pilih BTS
@@ -90,6 +77,19 @@ const Page: React.FC<PageProps> = ({ auth, bts, kuesioner, pilihankuesioner}) =>
                     </div>
 
                     <div className="mb-4">
+                        <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="tahun">
+                            Tahun
+                        </label>
+                        <input
+                            type="number"
+                            name="tahun"
+                            value={data.tahun}
+                            onChange={handleInputChange}
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline text-lg"
+                        />
+                    </div>
+
+                    <div className="mb-16">
                         <label className="block text-gray-700 text-lg font-bold mb-2" htmlFor="tanggal_kunjungan">
                             Tanggal Kunjungan
                         </label>
@@ -101,25 +101,23 @@ const Page: React.FC<PageProps> = ({ auth, bts, kuesioner, pilihankuesioner}) =>
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline text-lg"
                         />
                     </div>
+
+                    <KuesionerForm kuesioner={kuesioner as Kuesioner[]}
+                                   pilihan_kuesioner={pilihankuesioner as PilihanKuesioner[]}
+                                   jawaban={jawaban}
+                                   setJawaban={setJawaban}
+                    />
+
+                    <div className="w-full flex justify-center item-center">
+                        <button
+                            type="submit"
+                            onClick={handleSubmit}
+                            className="px-64 py-2 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded text-lg"
+                        >
+                            Submit
+                        </button>
+                    </div>
                 </div>
-            </div>
-
-            <div className="p-4">
-                <KuesionerForm kuesioner={kuesioner as Kuesioner[]}
-                               pilihan_kuesioner={pilihankuesioner as PilihanKuesioner[]}
-                               jawaban={jawaban}
-                               setJawaban={setJawaban}
-                />
-            </div>
-
-            <div className="w-full flex justify-center item-center mb-24">
-                <button
-                    type="submit"
-                    onClick={handleSubmit}
-                    className="px-64 py-2 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded text-lg"
-                >
-                    Submit
-                </button>
             </div>
         </AuthenticatedLayout>
     );
