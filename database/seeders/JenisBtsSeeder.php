@@ -14,9 +14,9 @@ class JenisBtsSeeder extends Seeder
     public function run(): void
     {
         $jenisBtsData = [
-            ['nama' => 'Tower Empat Kaki'],
-            ['nama' => 'Tower Tiga Kaki'],
-            ['nama' => 'Tower Satu Kaki'],
+            ['nama' => 'Tower Empat Kaki', 'created_by' => 1],
+            ['nama' => 'Tower Tiga Kaki', 'created_by' => 1],
+            ['nama' => 'Tower Satu Kaki', 'created_by' => 1],
         ];
 
         foreach ($jenisBtsData as $data) {

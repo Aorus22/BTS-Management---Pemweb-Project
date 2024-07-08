@@ -76,7 +76,6 @@ class KuesionerController extends Controller
         $formattedPilihanKuesioner = $pilihanKuesioner->map(function ($pilihan) {
             return [
                 'id' => $pilihan->id,
-                'id_kuesioner' => $pilihan->id_kuesioner,
                 'pilihan_jawaban' => $pilihan->pilihan_jawaban,
                 'created_by' => optional($pilihan->createdBy)->email,
                 'edited_by' => optional($pilihan->editedBy)->email,

@@ -33,5 +33,40 @@ class PemilikSeeder extends Seeder
             'telepon' => '0218765432',
             'created_by' => 1,
         ]);
+
+        Pemilik::create([
+            'nama' => 'PT Smartfren Telecom Tbk',
+            'alamat' => 'Jl. MH Thamrin No. 8',
+            'telepon' => '0888112233',
+            'created_by' => 1,
+        ]);
+
+        Pemilik::create([
+            'nama' => 'Hutchison Tri Indonesia',
+            'alamat' => 'Jl. Sudirman No. 10',
+            'telepon' => '0899223344',
+            'created_by' => 1,
+        ]);
+
+        Pemilik::create([
+            'nama' => 'PT MyRepublic Indonesia',
+            'alamat' => 'Jl. Kuningan Barat No. 26',
+            'telepon' => '0219876543',
+            'created_by' => 1,
+        ]);
+
+        Pemilik::create([
+            'nama' => 'PT Biznet Networks',
+            'alamat' => 'Jl. KH Wahid Hasyim No. 77',
+            'telepon' => '0215556667',
+            'created_by' => 1,
+        ]);
+
+        Pemilik::create([
+            'nama' => 'PT First Media Tbk',
+            'alamat' => 'Jl. Hayam Wuruk No. 11',
+            'telepon' => '0213334445',
+            'created_by' => 1,
+        ]);
     }
 }
