@@ -15,7 +15,7 @@ const Page: React.FC<PageProps> = ({ auth, id_kuesioner}) => {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Kuesioner</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Pilihan Kuesioner</h2>}
         >
             <div className="p-4">
                 <DynamicForm data={data} isNewForm={true} customPath={`${pathname}/data-pilihan-kuesioner`} />

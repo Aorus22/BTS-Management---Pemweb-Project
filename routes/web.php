@@ -3,6 +3,7 @@
 use App\Http\Controllers\BTSController;
 use App\Http\Controllers\JenisBtsController;
 use App\Http\Controllers\KuesionerController;
+use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\PenggunaRouterController;
 use App\Http\Controllers\PilihanKuesionerController;
 use App\Http\Controllers\ProfileController;
@@ -19,6 +20,7 @@ Route::resource('bts', BTSController::class);
 Route::resource('pengguna-router', PenggunaRouterController::class);
 Route::resource('data-kuesioner', KuesionerController::class);
 Route::resource('data-pilihan-kuesioner', PilihanKuesionerController::class);
+Route::resource('monitoring', MonitoringController::class);
 
 Route::get('/data-kuesioner/{id_kuesioner}/data-pilihan-kuesioner/create', [PilihanKuesionerController::class, 'create']);
 Route::post('/data-kuesioner/{id_kuesioner}/data-pilihan-kuesioner', [PilihanKuesionerController::class, 'store']);

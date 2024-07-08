@@ -18,12 +18,12 @@ const Page: React.FC<PageProps> = ({ auth, databts,  wilayahLevel2, pemilik, jen
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Jenis BTS</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Data BTS</h2>}
         >
-            <div className="p-4">
+            <div className="py-4 px-48">
                 <DynamicForm data={data as object} isNewForm={false} dropdown={dropdown} />
             </div>
-            <div className="p-4">
+            <div className="px-24 mb-32">
                 <GoogleMap  latitude={data.latitude} longitude={data.longitude}/>
             </div>
         </AuthenticatedLayout>

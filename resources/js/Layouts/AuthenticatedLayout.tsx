@@ -4,7 +4,7 @@ import Sidebar from "@/Components/Sidebar";
 
 export default function Authenticated({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
     return (
-        <div className="h-screen flex">
+        <div className="h-screen">
             <Sidebar user={user} />
             <div className="flex flex-col flex-1 ml-64 overflow-auto">
                 {header && (
@@ -12,7 +12,7 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
                     </header>
                 )}
-                <div className={"bg-gradient-to-b from-gray-200 to-gray-200 h-full"}>
+                <div className={"bg-gradient-to-b from-gray-200 to-gray-200 min-h-[90vh]"}>
                     {children}
                 </div>
             </div>

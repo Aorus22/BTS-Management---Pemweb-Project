@@ -6,6 +6,7 @@ use App\Models\Bts;
 use App\Models\JenisBTS;
 use App\Models\Pemilik;
 use App\Models\Wilayah;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -39,10 +40,10 @@ class BTSController extends Controller
                 'id_jenis_bts'=> optional($bts->jenisBts)->nama,
                 'id_pemilik' => optional($bts->pemilik)->nama,
                 'id_wilayah' => optional($bts->wilayah)->nama,
-                'created_by' => optional($bts->createdBy)->email,
-                'edited_by' => optional($bts->editedBy)->email,
-                'created_at' => $bts->created_at,
-                'updated_at' => $bts->updated_at,
+//                'created_by' => optional($bts->createdBy)->email,
+//                'edited_by' => optional($bts->editedBy)->email,
+//                'created_at' => $bts->created_at,
+//                'updated_at' => $bts->updated_at,
             ];
         });
 
@@ -130,5 +131,13 @@ class BTSController extends Controller
         $wilayah = BTS::find($id);
         $wilayah->delete();
         return redirect()->route('bts.index')->with('success', 'BTS berhasil dihapus');
+    }
+
+    public function exportToPDF(): \Illuminate\Http\Response
+    {
+        $bts = BTS::all();
+        $pdf = PDF::loadView('bts.pdf', ['bts' => $bts]);
+
+        return $pdf->download('bts-data.pdf');
     }
 }

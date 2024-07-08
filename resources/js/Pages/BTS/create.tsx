@@ -30,9 +30,9 @@ const Page: React.FC<PageProps> = ({ auth, wilayahLevel2, pemilik, jenisBts}) =>
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Jenis BTS</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Data BTS</h2>}
         >
-            <div className="p-4">
+            <div className="py-4 px-48">
                 <DynamicForm data={data} isNewForm={true} dropdown={dropdown}/>
             </div>
         </AuthenticatedLayout>

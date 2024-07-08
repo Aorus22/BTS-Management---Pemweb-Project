@@ -19,17 +19,18 @@ interface DynamicFormProps {
     data: FormDataCustom;
     dropdown?: Dropdown;
     customPath?: string;
+    forceInputType?: { [key: string]: string };
 }
 
 const formatLabel = (key: string) => {
     return key.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 };
 
-const DynamicForm: React.FC<DynamicFormProps> = ({ isNewForm, data, dropdown, customPath }) => {
+const DynamicForm: React.FC<DynamicFormProps> = ({ isNewForm, data, dropdown, customPath, forceInputType }) => {
     let pathname = usePage().url.split('/').slice(0, 2).join('/');
 
     if(customPath){
-        pathname = customPath
+        pathname = customPath;
     }
 
     const { data: formData, setData, post, put, processing, errors } = useForm<FormDataCustom>(data);
@@ -58,8 +59,10 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ isNewForm, data, dropdown, cu
     };
 
     const getInputType = (key: string): string => {
+        if (forceInputType && forceInputType[key]) {
+            return forceInputType[key];
+        }
         const value = formData[key];
-
         if (typeof value === 'number') {
             return 'number';
         } else if (typeof value === 'string') {
