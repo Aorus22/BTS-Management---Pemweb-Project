@@ -19,6 +19,11 @@ const Page: React.FC<PageProps> = ({ auth, kuesioner, pilihan_kuesioner }) => {
         >
             <div className="py-4 px-48">
                 <DynamicForm data={data1 as object} isNewForm={false}  />
+
+                <div className="mt-10 py-4 bg-gradient-to-b from-gray-700 to-gray-800 rounded-lg shadow-md text-center">
+                    <p className="text-3xl font-semibold text-white">Pilihan Jawaban</p>
+                </div>
+
                 <DynamicTabel data={data2 as []} customPath={`${pathname}/data-pilihan-kuesioner`} />
             </div>
         </AuthenticatedLayout>

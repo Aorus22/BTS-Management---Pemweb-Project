@@ -24,6 +24,7 @@ class WilayahSeeder extends Seeder
             $provinsiData = Wilayah::create([
                 'nama' => $provinsi,
                 'level' => 1,
+                'created_by' => 1,
             ]);
 
             foreach ($kabupatens as $kabupaten) {
@@ -31,6 +32,7 @@ class WilayahSeeder extends Seeder
                     'nama' => $kabupaten,
                     'id_parent' => $provinsiData->id,
                     'level' => 2,
+                    'created_by' => 1,
                 ]);
             }
         }
