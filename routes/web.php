@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BTSController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JenisBtsController;
 use App\Http\Controllers\KuesionerController;
 use App\Http\Controllers\MonitoringController;
@@ -37,9 +38,10 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
