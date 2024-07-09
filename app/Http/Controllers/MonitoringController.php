@@ -65,24 +65,29 @@ class MonitoringController extends Controller
     {
         $user = Auth::id();
 
-        $monitoringData = $request->get('monitoring');
-        $monitoringData['created_by'] = $user;
+        try {
+            $monitoringData = $request->get('monitoring');
+            $monitoringData['created_by'] = $user;
 
-        $monitoring = Monitoring::create($monitoringData);
-        $monitoringId = $monitoring->id;
+            $monitoring = Monitoring::create($monitoringData);
+            $monitoringId = $monitoring->id;
 
-        $jawabanData = $request->get('jawaban');
-        foreach ($jawabanData as $jawaban) {
-            JawabanKuesioner::create([
-                'id_monitoring' => $monitoringId,
-                'id_kuesioner' => $jawaban['id_kuesioner'],
-                'id_pilihan_kuesioner' => $jawaban['id_pilihan_kuesioner'],
-                'created_by' => $user
-            ]);
+            $jawabanData = $request->get('jawaban');
+            foreach ($jawabanData as $jawaban) {
+                JawabanKuesioner::create([
+                    'id_monitoring' => $monitoringId,
+                    'id_kuesioner' => $jawaban['id_kuesioner'],
+                    'id_pilihan_kuesioner' => $jawaban['id_pilihan_kuesioner'],
+                    'created_by' => $user
+                ]);
+            }
+
+            return redirect()->route('monitoring.index')->with('success', 'Monitoring berhasil ditambahkan');
+        } catch (\Exception $e) {
+            return redirect()->route('monitoring.create')->with('error', 'Terjadi kesalahan saat menambahkan monitoring: ' . $e->getMessage());
         }
-
-        return redirect()->route('monitoring.index')->with('success', 'Monitoring berhasil ditambahkan');
     }
+
 
 
     /**
@@ -131,12 +136,16 @@ class MonitoringController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $kuesioner = Kuesioner::findOrFail($id);
-        $data = $request->all();
-        $data['edited_by'] = Auth::id();
-        $data['edited_at'] = Carbon::now();
-        $kuesioner->update($data);
-        return redirect()->route('data-kuesioner.index')->with('success', 'Kuesioner berhasil diupdate');
+        try {
+            $kuesioner = Kuesioner::findOrFail($id);
+            $data = $request->all();
+            $data['edited_by'] = Auth::id();
+            $data['edited_at'] = Carbon::now();
+            $kuesioner->update($data);
+            return redirect()->route('data-kuesioner.index')->with('success', 'Kuesioner berhasil diupdate');
+        } catch (\Exception $e) {
+            return redirect()->route('data-kuesioner.edit', $id)->with('error', 'Terjadi kesalahan saat mengupdate kuesioner: ' . $e->getMessage());
+        }
     }
 
     /**

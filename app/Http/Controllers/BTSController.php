@@ -66,11 +66,15 @@ class BTSController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $data = $request->all();
-        $data['created_by'] = Auth::id();
+        try {
+            $data = $request->all();
+            $data['created_by'] = Auth::id();
 
-        BTS::create($data);
-        return redirect()->route('bts.index')->with('success', 'BTS berhasil ditambahkan');
+            BTS::create($data);
+            return redirect()->route('bts.index')->with('success', 'BTS berhasil ditambahkan');
+        } catch (\Exception $e) {
+            return redirect()->route('bts.create')->with('error', 'Terjadi kesalahan saat menambahkan BTS: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -115,12 +119,16 @@ class BTSController extends Controller
      */
     public function update(Request $request, $id): RedirectResponse
     {
-        $bts = BTS::findOrFail($id);
-        $data = $request->all();
-        $data['edited_by'] = Auth::id();
-        $data['edited_at'] = Carbon::now();
-        $bts->update($data);
-        return redirect()->route('bts.index')->with('success', 'BTS berhasil diupdate');
+        try {
+            $bts = BTS::findOrFail($id);
+            $data = $request->all();
+            $data['edited_by'] = Auth::id();
+            $data['edited_at'] = Carbon::now();
+            $bts->update($data);
+            return redirect()->route('bts.index')->with('success', 'BTS berhasil diupdate');
+        } catch (\Exception $e) {
+            return redirect()->route('bts.edit', $id)->with('error', 'Terjadi kesalahan saat mengupdate BTS: ' . $e->getMessage());
+        }
     }
 
     /**
