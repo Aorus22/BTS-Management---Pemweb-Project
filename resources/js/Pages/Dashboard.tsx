@@ -1,6 +1,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import BarChart from '@/Components/BarChart'
 import { PageProps } from '@/types';
+import OpenStreetMaps from '@/Components/OpenStreetMaps';
 
 interface DashboardProps extends PageProps {
     totalJenisBTS: number;
@@ -10,11 +11,12 @@ interface DashboardProps extends PageProps {
     btsPerJenis: any[];
     btsPerWilayah: any[];
     btsPerPemilik: any[];
+    lokasiTower: any[];
 }
 
 const Dashboard: React.FC<DashboardProps> = ({
      auth, totalJenisBTS, totalPemilikBTS, totalWilayahBTS, totalMonitoring,
-     btsPerJenis, btsPerWilayah, btsPerPemilik
+     btsPerJenis, btsPerWilayah, btsPerPemilik, lokasiTower
     }) => {
 
     return (
@@ -48,7 +50,11 @@ const Dashboard: React.FC<DashboardProps> = ({
                     </div>
                 </div>
 
-                <div className="mt-8 px-24">
+                <div className='mt-8 px-16'>
+                    <OpenStreetMaps coordinates={lokasiTower} zoom={6}/>
+                </div>
+
+                <div className="mt-8 px-16">
                     <div className="mb-4 bg-white p-6 rounded-xl flex-col justify-center items-center flex">
                         <h2 className="text-2xl font-bold mb-2">Jumlah BTS Berdasarkan Jenis</h2>
                         <BarChart data={btsPerJenis} title="Jumlah BTS Berdasarkan Jenis" color="#334155"

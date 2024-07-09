@@ -35,6 +35,16 @@ class DashboardController extends Controller
             ->groupBy('pemilik.nama')
             ->get();
 
+        $btsData = BTS::select('latitude', 'longitude', 'nama')->get();
+
+        $lokasiTower = $btsData->map(function ($item) {
+            return [
+                'lat' => $item->latitude,
+                'lng' => $item->longitude,
+                'name' => $item->nama,
+            ];
+        });
+
 
         return Inertia::render('Dashboard', [
             'totalJenisBTS' => $totalJenisBTS,
@@ -43,8 +53,8 @@ class DashboardController extends Controller
             'totalMonitoring' => $totalMonitoring,
             'btsPerJenis' => $btsPerJenis,
             'btsPerWilayah' => $btsPerWilayah,
-            'btsPerPemilik' => $btsPerPemilik
-
+            'btsPerPemilik' => $btsPerPemilik,
+            'lokasiTower' => $lokasiTower
         ]);
     }
 }
