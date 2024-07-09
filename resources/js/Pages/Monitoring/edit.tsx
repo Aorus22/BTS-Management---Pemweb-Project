@@ -3,7 +3,7 @@ import { PageProps } from "@/types";
 import React, { useState } from "react";
 
 const Page: React.FC<PageProps> = ({ auth, monitoring, jawaban }) => {
-    const [data1, setData1] = useState(monitoring);
+    const [data1, setData1] = useState(monitoring as any[]);
     const [data2, setData2] = useState(jawaban as any[]);
 
     return (

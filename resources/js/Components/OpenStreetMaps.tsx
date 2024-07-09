@@ -1,5 +1,5 @@
-import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import React, { useEffect, useRef } from 'react';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 export interface MapsProps {
@@ -8,36 +8,40 @@ export interface MapsProps {
 }
 
 const MapComponent: React.FC<MapsProps> = ({ coordinates, zoom }) => {
+    const mapRef = useRef<HTMLDivElement | null>(null);
 
-    let center: [number, number];
+    useEffect(() => {
+        if (mapRef.current) {
+            const map = L.map(mapRef.current).setView(
+                coordinates.length === 1
+                    ? [coordinates[0].lat, coordinates[0].lng]
+                    : [-6.2088, 106.8456],
+                zoom
+            );
 
-    if (coordinates.length === 1) {
-        center = [coordinates[0].lat, coordinates[0].lng];
-    } else {
-        center = [-6.2088, 106.8456];
-    }
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            }).addTo(map);
+
+            coordinates.forEach((coord) => {
+                const marker = L.marker([coord.lat, coord.lng]).addTo(map);
+                marker.bindPopup(coord.name);
+            });
+
+            return () => {
+                map.remove();
+            };
+        }
+    }, [coordinates, zoom]);
 
     return (
         <>
-            {coordinates && coordinates.length > 0 && (
-                    // @ts-ignore
-                <MapContainer center={center} zoom={zoom} style={{ height: '600px', width: '100%' }}>
-                    <TileLayer
-                    // @ts-ignore
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    {coordinates.map((coord, index) => (
-                        <Marker key={index} position={[coord.lat, coord.lng]}>
-                            <Popup>{coord.name}</Popup>
-                        </Marker>
-                    ))}
-                </MapContainer>
-            )}
-            {(!coordinates || coordinates.length === 0) && (
+            {coordinates && coordinates.length > 0 ? (
+                <div ref={mapRef} style={{ height: '600px', width: '100%' }} />
+            ) : (
                 <div className='bg-white font-semibold text-gray-700 w-full h-[200px] flex justify-center items-center'>
-                <p>Data koordinat tidak tersedia.</p>
-            </div>
+                    <p>Data koordinat tidak tersedia.</p>
+                </div>
             )}
         </>
     );
