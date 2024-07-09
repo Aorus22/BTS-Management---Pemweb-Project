@@ -26,15 +26,13 @@ export const exportToPdf = (data: Array<{ [key: string]: any }>) => {
             const imgHeight = (canvas.height * pdfWidth) / canvas.width;
             let position = 0;
 
-            // Calculate total pages
             const totalRows = pdfTable.rows.length;
-            const pageHeight = pdfHeight - 40; // accounting for margins
+            const pageHeight = pdfHeight - 40;
 
             const renderPage = () => {
                 doc.addImage(imgData, 'PNG', 40, 40 + position, pdfWidth - 80, imgHeight);
                 position -= pageHeight;
 
-                // Check if there are remaining rows to render
                 if (position <= -imgHeight) {
                     doc.addPage();
                     resolve();
@@ -67,11 +65,36 @@ export const exportToExcel = (data: Array<{ [key: string]: any }>) => {
     const sheet = workbook.addWorksheet('Sheet1');
 
     const headers = Object.keys(data[0]);
-    sheet.addRow(headers);
+    const headerRow = sheet.addRow(headers);
+
+    headerRow.eachCell((cell) => {
+        cell.fill = {
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor: { argb: '333333' },
+        };
+        cell.font = {
+            color: { argb: 'FFFFFF' },
+            bold: true,
+        };
+        cell.alignment = { vertical: 'middle', horizontal: 'center' };
+    });
 
     data.forEach(item => {
         const row = Object.values(item);
         sheet.addRow(row);
+    });
+
+    sheet.columns.forEach((column) => {
+        let maxLength = 0;
+        //@ts-ignore
+        column.eachCell((cell) => {
+            const columnLength = cell.value ? cell.value.toString().length : 10;
+            if (columnLength > maxLength) {
+                maxLength = columnLength;
+            }
+        });
+        column.width = maxLength + 2;
     });
 
     workbook.xlsx.writeBuffer().then(buffer => {
