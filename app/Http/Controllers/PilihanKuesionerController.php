@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< Updated upstream
 use App\Http\Requests\PilihanKuesionerRequest;
+=======
+use App\Http\Requests\PilihanKuesionerReqeust;
+>>>>>>> Stashed changes
 use App\Models\Kuesioner;
 use App\Models\Pilihan_Kuesioner;
 use Illuminate\Http\Request;
@@ -31,7 +35,11 @@ class PilihanKuesionerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+<<<<<<< Updated upstream
     public function store(PilihanKuesionerRequest $request)
+=======
+    public function store(PilihanKuesionerReqeust $request)
+>>>>>>> Stashed changes
     {
         $data = $request->validated();
         $data['created_by'] = Auth::id();
@@ -65,7 +73,11 @@ class PilihanKuesionerController extends Controller
     /**
      * Update the specified resource in storage.
      */
+<<<<<<< Updated upstream
     public function update(PilihanKuesionerRequest $request, $id_kuesioner, $id)
+=======
+    public function update(PilihanKuesionerReqeust $request, $id_kuesioner, $id)
+>>>>>>> Stashed changes
     {
         $pilihan_kuesioner = Pilihan_Kuesioner::findOrFail($id);
         $data = $request->validated();
