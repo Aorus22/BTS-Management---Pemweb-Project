@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PilihanKuesionerRequest;
 use App\Models\Kuesioner;
 use App\Models\Pilihan_Kuesioner;
 use Illuminate\Http\Request;
@@ -30,9 +31,9 @@ class PilihanKuesionerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PilihanKuesionerRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
         $data['created_by'] = Auth::id();
 
         Pilihan_Kuesioner::create($data);
@@ -64,10 +65,10 @@ class PilihanKuesionerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id_kuesioner, $id)
+    public function update(PilihanKuesionerRequest $request, $id_kuesioner, $id)
     {
         $pilihan_kuesioner = Pilihan_Kuesioner::findOrFail($id);
-        $data = $request->all();
+        $data = $request->validated();
         $data['edited_by'] = Auth::id();
         $data['edited_at'] = Carbon::now();
         $pilihan_kuesioner->update($data);

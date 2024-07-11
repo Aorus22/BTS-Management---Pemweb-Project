@@ -1,12 +1,12 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {PageProps} from "@/types";
 import DynamicForm from "@/Components/DynamicForm";
-import React, {useState} from "react";
+import React from "react";
 
-const Page: React.FC<PageProps> = ({ auth}) => {
-    const [dataJenisBts, setDataJenisBts] = useState({
-        nama: ""
-    })
+const Page: React.FC<PageProps> = ({ auth }) => {
+    const dataJenisBts = {
+        nama: null
+    }
 
     return (
         <AuthenticatedLayout

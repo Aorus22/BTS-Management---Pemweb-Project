@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\WilayahRequest;
 use App\Models\JenisBTS;
 use App\Models\Wilayah;
 use Illuminate\Http\RedirectResponse;
@@ -49,9 +50,9 @@ class WilayahController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(WilayahRequest $request): RedirectResponse
     {
-        $data = $request->all();
+        $data = $request->validated();
         $data['created_by'] = Auth::id();
 
         Wilayah::create($data);
@@ -86,10 +87,10 @@ class WilayahController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(WilayahRequest $request, $id): RedirectResponse
     {
         $wilayah = Wilayah::findOrFail($id);
-        $data = $request->all();
+        $data = $request->validated();
         $data['edited_by'] = Auth::id();
         $data['edited_at'] = Carbon::now();
         $wilayah->update($data);

@@ -1,14 +1,14 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {PageProps} from "@/types";
 import DynamicForm from "@/Components/DynamicForm";
-import React, {useState} from "react";
+import React from "react";
 import {usePage} from "@inertiajs/react";
 
-const Page: React.FC<PageProps> = ({ auth, id_kuesioner}) => {
-    const [data, setData] = useState({
+const Page: React.FC<PageProps> = ({ auth, id_kuesioner }) => {
+    const data = {
         id_kuesioner: id_kuesioner,
         pilihan_jawaban: "",
-    })
+    }
 
     const pathname = usePage().url.split('/').slice(0, 3).join('/');
 

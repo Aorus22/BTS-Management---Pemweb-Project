@@ -30,11 +30,11 @@ const menuItems = [
         route: '/pemilik',
         svg: <img src="/icon/data-pemilik.svg" alt="Data Pemilik" />,
     },
-    // {
-    //     title: 'Data Pengguna',
-    //     route: '/pengguna-router',
-    //     svg: <img src="/icon/data-pengguna.svg" alt="Data Pengguna" />,
-    // },
+    {
+        title: 'Data Pengguna',
+        route: '/pengguna',
+        svg: <img src="/icon/data-pengguna.svg" alt="Data Pengguna" />,
+    },
     {
         title: 'Data BTS',
         route: '/bts',

@@ -1,14 +1,14 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {PageProps} from "@/types";
 import DynamicForm from "@/Components/DynamicForm";
-import React, {useState} from "react";
+import React from "react";
 
-const Page: React.FC<PageProps> = ({ auth}) => {
-    const [data, setData] = useState({
-        nama: "",
-        alamat: "",
-        telepon: ""
-    })
+const Page: React.FC<PageProps> = ({ auth }) => {
+    const data = {
+        nama: null,
+        alamat: null,
+        telepon: null
+    }
 
     return (
         <AuthenticatedLayout

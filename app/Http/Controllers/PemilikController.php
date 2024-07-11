@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PemilikRequest;
 use App\Models\Pemilik;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -48,9 +49,9 @@ class PemilikController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(PemilikRequest $request): RedirectResponse
     {
-        $data = $request->all();
+        $data = $request->validated();
         $data['created_by'] = Auth::id();
 
         Pemilik::create($data);
@@ -85,10 +86,10 @@ class PemilikController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(PemilikRequest $request, $id): RedirectResponse
     {
         $pemilik = Pemilik::findOrFail($id);
-        $data = $request->all();
+        $data = $request->validated();
         $data['edited_by'] = Auth::id();
         $data['edited_at'] = Carbon::now();
         $pemilik->update($data);

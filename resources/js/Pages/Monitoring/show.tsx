@@ -3,9 +3,6 @@ import { PageProps } from "@/types";
 import React, { useState } from "react";
 
 const Page: React.FC<PageProps> = ({ auth, monitoring, jawaban }) => {
-    const [data1, setData1] = useState(monitoring as any[]);
-    const [data2, setData2] = useState(jawaban as any[]);
-
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -17,7 +14,7 @@ const Page: React.FC<PageProps> = ({ auth, monitoring, jawaban }) => {
                         <p className="text-2xl font-semibold text-white">MONITORING</p>
                     </div>
                     <div className="grid grid-cols-3 gap-4">
-                        {Object.entries(data1).map(([key, value], index) => (
+                        {Object.entries(monitoring as object).map(([key, value], index) => (
                             <React.Fragment key={index}>
                                 <div className="col-span-1 font-semibold text-gray-700">{key}:</div>
                                 <div className="col-span-2 text-gray-600">{value}</div>
@@ -35,7 +32,7 @@ const Page: React.FC<PageProps> = ({ auth, monitoring, jawaban }) => {
                         <p className="text-2xl font-semibold text-white">JAWABAN KUESIONER</p>
                     </div>
                     <div className="space-y-4">
-                        {data2.map((item, index) => (
+                        {(jawaban as any[]).map((item, index) => (
                             <div key={index} className="bg-white p-4 rounded-lg shadow-md">
                                 <p className="text-lg text-gray-700 mb-2">{item.id_kuesioner}</p>
                                 <p className="font-semibold text-gray-600 text-xl">{item.id_pilihan_kuesioner}</p>

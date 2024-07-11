@@ -1,14 +1,14 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {PageProps} from "@/types";
 import DynamicForm from "@/Components/DynamicForm";
-import React, {useState} from "react";
+import React from "react";
 
-const Page: React.FC<PageProps> = ({ auth, wilayahLevel1}) => {
-    const [data, setData] = useState({
-        nama: "",
-        id_parent: "",
-        level: "",
-    })
+const Page: React.FC<PageProps> = ({ auth, wilayahLevel1 }) => {
+    const data= {
+        nama: null,
+        id_parent: null,
+        level: null,
+    }
 
     const dropdown = {
         id_parent: wilayahLevel1 as [],

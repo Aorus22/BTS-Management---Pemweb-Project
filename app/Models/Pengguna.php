@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class PenggunaRouter extends Model
+class Pengguna extends Model
 {
     use HasFactory;
 
-    protected $table = 'pengguna_router';
-    protected $fillable = ['nama', 'alamat', 'telepon', 'created_by', 'edited_by'];
-
+    protected $table = 'pengguna';
+    protected $fillable = ['nama', 'alamat', 'telepon', 'id_bts', 'created_by', 'edited_by'];
+    public function bts(): BelongsTo
+    {
+        return $this->belongsTo(BTS::class, 'id_bts');
+    }
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');

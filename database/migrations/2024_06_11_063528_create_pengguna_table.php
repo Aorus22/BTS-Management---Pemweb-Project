@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pengguna_router', function (Blueprint $table) {
+        Schema::create('pengguna', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
             $table->string('alamat');
             $table->string('telepon');
+            $table->unsignedBigInteger('id_bts')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('edited_by')->nullable();
             $table->timestamps();
 
+            $table->foreign('id_bts')->references('id')->on('bts')->onDelete('cascade');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('edited_by')->references('id')->on('users')->onDelete('cascade');
         });

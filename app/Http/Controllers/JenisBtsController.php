@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\JenisBtsUpdateRequest;
 use App\Models\JenisBTS;
 use App\Http\Requests\Storejenis_btsRequest;
-use App\Http\Requests\Updatejenis_btsRequest;
+use App\Http\Requests\JenisBtsRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -49,9 +50,9 @@ class JenisBtsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(JenisBtsRequest $request): RedirectResponse
     {
-        $data = $request->all();
+        $data = $request->validated();
         $data['created_by'] = Auth::id();
 
         JenisBTS::create($data);
@@ -84,10 +85,10 @@ class JenisBtsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(JenisBtsRequest $request, $id): RedirectResponse
     {
         $jenis_bts = JenisBTS::findOrFail($id);
-        $data = $request->all();
+        $data = $request->validated();
         $data['edited_by'] = Auth::id();
         $data['edited_at'] = Carbon::now();
         $jenis_bts->update($data);

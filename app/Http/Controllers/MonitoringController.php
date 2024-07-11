@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MonitoringRequest;
 use App\Models\BTS;
 use App\Models\JawabanKuesioner;
 use App\Models\Kuesioner;
 use App\Models\Monitoring;
 use App\Models\Pilihan_Kuesioner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -61,34 +63,32 @@ class MonitoringController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(MonitoringRequest $request)
     {
         $user = Auth::id();
+        $data = $request->validated();
 
-        try {
-            $monitoringData = $request->get('monitoring');
-            $monitoringData['created_by'] = $user;
+        $monitoring = Monitoring::create([
+            'id_bts'=> $data['id_bts'],
+            'tahun'=> $data['tahun'],
+            'tanggal_kunjungan'=> $data['tanggal_kunjungan'],
+            'created_by'=> $user
+        ]);
 
-            $monitoring = Monitoring::create($monitoringData);
-            $monitoringId = $monitoring->id;
+        $monitoringId = $monitoring->id;
 
-            $jawabanData = $request->get('jawaban');
-            foreach ($jawabanData as $jawaban) {
-                JawabanKuesioner::create([
-                    'id_monitoring' => $monitoringId,
-                    'id_kuesioner' => $jawaban['id_kuesioner'],
-                    'id_pilihan_kuesioner' => $jawaban['id_pilihan_kuesioner'],
-                    'created_by' => $user
-                ]);
-            }
-
-            return redirect()->route('monitoring.index')->with('success', 'Monitoring berhasil ditambahkan');
-        } catch (\Exception $e) {
-            return redirect()->route('monitoring.create')->with('error', 'Terjadi kesalahan saat menambahkan monitoring: ' . $e->getMessage());
+        $jawabanData = $request->get('jawaban');
+        foreach ($jawabanData as $id_kuesioner => $id_pilihan_kuesioner) {
+            JawabanKuesioner::create([
+                'id_monitoring' => $monitoringId,
+                'id_kuesioner' => $id_kuesioner,
+                'id_pilihan_kuesioner' => $id_pilihan_kuesioner,
+                'created_by' => $user
+            ]);
         }
+
+        return redirect()->route('monitoring.index')->with('success', 'Monitoring berhasil ditambahkan');
     }
-
-
 
     /**
      * Display the specified resource.
@@ -117,7 +117,7 @@ class MonitoringController extends Controller
            ];
         });
 
-        return Inertia::render('Monitoring/edit', [
+        return Inertia::render('Monitoring/show', [
             'monitoring' => $formattedmonitoring,
             'jawaban' => $jawaban
         ]);

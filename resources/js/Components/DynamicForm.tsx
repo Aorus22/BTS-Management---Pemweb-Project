@@ -19,21 +19,21 @@ interface DynamicFormProps {
     data: FormDataCustom;
     dropdown?: Dropdown;
     customPath?: string;
-    forceInputType?: { [key: string]: string };
+    inputType?: { [key: string]: string };
 }
 
 const formatLabel = (key: string) => {
     return key.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 };
 
-const DynamicForm: React.FC<DynamicFormProps> = ({ isNewForm, data, dropdown, customPath, forceInputType }) => {
+const DynamicForm: React.FC<DynamicFormProps> = ({ isNewForm, data, dropdown, customPath, inputType }) => {
     let pathname = usePage().url.split('/').slice(0, 2).join('/');
 
-    if(customPath){
+    if (customPath) {
         pathname = customPath;
     }
 
-    const { data: formData, setData, post, put, processing, errors } = useForm<FormDataCustom>(data);
+    const { data: formData, setData, post, put, processing, errors, clearErrors } = useForm<FormDataCustom>(data);
     const [isEditMode, setIsEditMode] = useState(isNewForm);
     const [initialData] = useState<FormDataCustom>(data);
 
@@ -58,23 +58,20 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ isNewForm, data, dropdown, cu
         put(`${pathname}/${formData.id}`);
     };
 
+    const handleChange = (key: string, value: any) => {
+        setData(key, value);
+        clearErrors(key);
+    };
+
     const getInputType = (key: string): string => {
-        if (forceInputType && forceInputType[key]) {
-            return forceInputType[key];
-        }
-        const value = formData[key];
-        if (typeof value === 'number') {
-            return 'number';
-        } else if (typeof value === 'string') {
-            return 'text';
-        } else if (value instanceof Date) {
-            return 'datetime-local';
+        if (inputType && inputType[key]) {
+            return inputType[key];
         }
         return 'text';
     };
 
     return (
-        <div className="bg-gradient-to-b from-white to-gray-50 rounded-xl p-12 mt-4">
+        <div className="bg-gradient-to-b from-white to-gray-50 rounded-xl p-12 mt-4 shadow-md">
             {!isNewForm && (
                 <div className="mb-4 flex space-x-2">
                     <button
@@ -108,8 +105,8 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ isNewForm, data, dropdown, cu
                             <select
                                 name={key}
                                 value={formData[key]}
-                                onChange={(e) => setData(key, e.target.value)}
-                                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline text-lg ${!isEditMode ? 'bg-gray-200 cursor-not-allowed' : ''}`}
+                                onChange={(e) => handleChange(key, e.target.value)}
+                                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline text-lg ${errors[key] ? 'border-red-500' : ''} ${!isEditMode ? 'bg-gray-200 cursor-not-allowed' : ''}`}
                                 disabled={!isEditMode}
                             >
                                 <option value="">Pilih {formatLabel(key)}</option>
@@ -122,8 +119,8 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ isNewForm, data, dropdown, cu
                                 type={getInputType(key)}
                                 name={key}
                                 value={getInputType(key) === 'datetime-local' ? (new Date(formData[key]).toISOString().slice(0, 16)) : (formData[key])}
-                                onChange={(e) => setData(key, e.target.value)}
-                                className={`shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-lg ${!isEditMode || key === 'id' ? 'bg-gray-200 cursor-not-allowed' : ''}`}
+                                onChange={(e) => handleChange(key, e.target.value)}
+                                className={`shadow appearance-none border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-lg ${errors[key] ? 'border-red-500' : ''} ${!isEditMode || key === 'id' ? 'bg-gray-200 cursor-not-allowed' : ''}`}
                                 hidden={isNewForm && key === 'id'}
                                 disabled={!isEditMode || key === 'id'}
                             />

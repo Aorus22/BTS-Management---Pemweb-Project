@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\KuesionerRequest;
 use App\Models\Kuesioner;
 use App\Models\Pilihan_Kuesioner;
 use Illuminate\Http\Request;
@@ -47,9 +48,9 @@ class KuesionerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(KuesionerRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
         $data['created_by'] = Auth::id();
 
         Kuesioner::create($data);
@@ -101,10 +102,10 @@ class KuesionerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(KuesionerRequest $request, $id)
     {
         $kuesioner = Kuesioner::findOrFail($id);
-        $data = $request->all();
+        $data = $request->validated();
         $data['edited_by'] = Auth::id();
         $data['edited_at'] = Carbon::now();
         $kuesioner->update($data);
